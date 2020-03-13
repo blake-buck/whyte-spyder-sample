@@ -22,7 +22,11 @@ function App() {
     return messages.map((val:any) => ({...val, dateCreated: val.created.split(' ')[0], timeCreated:val.created.split(' ')[1]}))
   }
 
-  const [logMessages, setLogMessages] = useState<LogMessage[]>(initializeLogMessages(logData))
+  const [sortByDateAsc, setSortByDateAsc] = useState<boolean | null>(null);
+  const [sortByTimeAsc, setSortByTimeAsc] = useState<boolean | null>(null);
+  const [sortBySubjectAsc, setSortBySubjectAsc] = useState<boolean | null>(null);
+
+  const [logMessages, setLogMessages] = useState<LogMessage[]>(initializeLogMessages(logData));
   const [selected, setSelected] = useState<LogMessage | null>(null);
   const [filterOptions, setFilterOptions] = useState({
     date:{
@@ -35,7 +39,7 @@ function App() {
     },
     subjectIncludes:'',
     typeOne:true,
-    typeTwo:false,
+    typeTwo:true,
     typeThree:true
   })
 
@@ -59,6 +63,115 @@ function App() {
     setLogMessages(messages => initializeLogMessages(logData))
   }
 
+  function sortByDate(){
+    if(sortByDateAsc){
+      setLogMessages(messages => 
+        [...messages.sort((a, b) => {
+          if(moment(a.dateCreated).isAfter(moment(b.dateCreated))){
+            return 1
+          }
+          if(moment(b.dateCreated).isAfter(moment(a.dateCreated))){
+            return -1
+          }
+          return 0
+        })]
+      )
+      setSortByDateAsc(false)
+    }
+    else{
+      setLogMessages(messages => 
+        [...messages.sort((a, b) => {
+          if(moment(a.dateCreated).isAfter(moment(b.dateCreated))){
+            return -1
+          }
+          if(moment(b.dateCreated).isAfter(moment(a.dateCreated))){
+            return 1
+          }
+          return 0
+        })]
+      )
+      setSortByDateAsc(true)
+    }
+
+    setSortByTimeAsc(false)
+    setSortBySubjectAsc(false)
+  }
+
+  function sortByTime(){
+    if(sortByTimeAsc){
+      setLogMessages(messages => 
+        [
+          ...messages.sort((a, b) => {
+            if(moment(`2020-3-13 ${a.timeCreated}`).isAfter(moment(`2020-3-13 ${b.timeCreated}`))){
+              return 1
+            }
+            if(moment(`2020-3-13 ${b.timeCreated}`).isAfter(moment(`2020-3-13 ${a.timeCreated}`))){
+              return -1
+            }
+            return 0
+          })
+       ]
+      )
+      setSortByTimeAsc(false)
+    }
+    else{
+      setLogMessages(messages => 
+        [
+          ...messages.sort((a, b) => {
+            if(moment(`2020-3-13 ${a.timeCreated}`).isAfter(moment(`2020-3-13 ${b.timeCreated}`))){
+              return -1
+            }
+            if(moment(`2020-3-13 ${b.timeCreated}`).isAfter(moment(`2020-3-13 ${a.timeCreated}`))){
+              return 1
+            }
+            return 0
+          })
+       ]
+      )
+      setSortByTimeAsc(true)
+    }
+    
+    setSortByDateAsc(false);
+    setSortBySubjectAsc(false)
+  }
+
+  function sortBySubject(){
+    if(sortBySubjectAsc){
+      setLogMessages(messages => 
+        [
+          ...messages.sort((a, b) => {
+            if(a.subject.toLowerCase() > b.subject.toLowerCase()){
+              return 1
+            }
+            if(a.subject.toLowerCase() < b.subject.toLowerCase()){
+              return -1
+            }
+            return 0
+          })
+       ]
+      )
+      setSortBySubjectAsc(false)
+    }
+    else{
+      setLogMessages(messages => 
+        [
+          ...messages.sort((a, b) => {
+            if(a.subject.toLowerCase() > b.subject.toLowerCase()){
+              return -1
+            }
+            if(a.subject.toLowerCase() < b.subject.toLowerCase()){
+              return 1
+            }
+            return 0
+          })
+       ]
+      )
+      setSortBySubjectAsc(true)
+    }
+    setSortByDateAsc(false);
+    setSortByTimeAsc(false);
+    
+  }
 
   return (
     <div>
@@ -119,9 +232,9 @@ function App() {
       <table className='table'>
         <thead>
           <tr>
-            <th scope='col'>Date</th>
-            <th scope='col'>Time</th>
-            <th scope='col'>Subject</th>
+            <th scope='col' onClick={(e) => sortByDate()} data-toggle="tooltip" title="Sort entries by the date they were created">Date</th>
+            <th scope='col' onClick={(e) => sortByTime()} data-toggle="tooltip" title="Sort entries by the time they were created">Time</th>
+            <th scope='col' onClick={(e) => sortBySubject()} data-toggle="tooltip" title="Sort entries alphabetically by subject">Subject</th>
           </tr>
         </thead>
         <tbody>
