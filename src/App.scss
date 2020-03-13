@@ -27,3 +27,33 @@ header{
 .status-3{
     background:red;
 }
+
+.various-filters{
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+
+    .filter-card{
+        min-width: 300px;
+        border:1px solid lightgrey;
+        border-radius:5px;
+        padding:5px;
+        margin:5px;
+    }
+}
+
+.filter-checkbox{
+    display:flex;
+    align-items: center;
+    input{
+        width:16px;
+        height:16px;
+    }
+}
+
+.filter-card-body{
+    button{
+        float:right;
+        margin:5px;
+    }
+}
