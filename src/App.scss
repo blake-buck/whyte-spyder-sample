@@ -3,11 +3,27 @@ header{
     align-items: center;
 
     img{
-        width:128px;
-        height:128px;
+        width:64px;
+        height:64px;
     }
 
     h1{
         margin-left: 10px;
     }
+}
+
+.status-1, .status-3{
+    color:white;
+}
+
+.status-1{
+    background:green;
+}
+
+.status-2{
+    background:yellow;
+}
+
+.status-3{
+    background:red;
 }
