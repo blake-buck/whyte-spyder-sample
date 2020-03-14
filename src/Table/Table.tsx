@@ -1,12 +1,12 @@
 import React from 'react';
-import { LogMessage } from '../types';
+import { LogMessage, AppState } from '../types';
 
 interface TableProps{
     logMessages:LogMessage[]
-    sortByDate: any;
-    sortByTime:any;
-    sortBySubject:any;
-    setState:any;
+    sortByDate: () => void;
+    sortByTime: () => void;
+    sortBySubject:() => void;
+    setState: React.Dispatch<React.SetStateAction<AppState>>;
 }
 
 
@@ -22,7 +22,7 @@ function Table(props:TableProps){
         </thead>
         <tbody>
           {props.logMessages.map((logMessage:LogMessage) => (
-            <tr key={logMessage.id} className={`status-${logMessage.type}`} data-toggle="modal" data-target="#message-dialog" onClick={() => props.setState((state:any) => ({...state, selected:logMessage}))}>
+            <tr key={logMessage.id} className={`status-${logMessage.type}`} data-toggle="modal" data-target="#message-dialog" onClick={() => props.setState((state:AppState) => ({...state, selected:logMessage}))}>
               <td>{logMessage.dateCreated}</td>
               <td>{logMessage.timeCreated}</td>
               <td>{logMessage.subject}</td>

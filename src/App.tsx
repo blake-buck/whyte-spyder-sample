@@ -33,7 +33,7 @@ function App() {
   })
 
   function initializeLogMessages(messages:UninitializedLogMessage[]){
-    return messages.map((val:any) => ({...val, dateCreated: val.created.split(' ')[0], timeCreated:val.created.split(' ')[1]}))
+    return messages.map((val:UninitializedLogMessage) => ({...val, dateCreated: val.created.split(' ')[0], timeCreated:val.created.split(' ')[1]}))
   }
 
   function tableSort(a:LogMessage, b:LogMessage, column:string, ascending:boolean){

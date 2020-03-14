@@ -1,10 +1,11 @@
 import React from 'react';
+import { FilterOptions } from '../types';
 
 interface FilterProps{
-    filterOptions:any;
-    changeFilterOptions:any;
-    applyFilter:any;
-    clearFilter:any;
+    filterOptions:FilterOptions;
+    changeFilterOptions: (e:React.ChangeEvent<HTMLInputElement>, parameterToChange:string, isCheckbox?:boolean) => void;
+    applyFilter: () => void;
+    clearFilter: () => void;
 }
 
 function Filter(props:FilterProps){
