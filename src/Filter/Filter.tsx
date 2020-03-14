@@ -12,7 +12,7 @@ interface FilterProps{
 function Filter(props:FilterProps){
     const {filterOptions, changeFilterOptions, applyFilter, clearFilter} = props;
     return (
-        <div className='card filter-card'>
+        <div className='card wrapper'>
         <div className='card-body filter-card-body'>
 
           <h5 className='card-title'>Filter Options</h5>

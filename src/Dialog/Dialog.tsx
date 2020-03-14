@@ -11,7 +11,7 @@ function Dialog(props:DialogProps){
             <div className="modal-dialog" role="document">
             <div className="modal-content">
                 <div className="modal-header">
-                <h5 className="modal-title">Log Message</h5>
+                <h5 className="modal-title">Log Body</h5>
                 </div>
                 <div className="modal-body">
                 {props.selected?.body ? props.selected.body : 'This log message doesn\'t have a body.'}

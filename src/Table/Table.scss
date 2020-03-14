@@ -3,15 +3,19 @@
 }
 
 .status-1{
-    background:green;
+    background:#5cb85c
 }
 
 .status-2{
-    background:yellow;
+    background:#f0ad4e
 }
 
 .status-3{
-    background:red;
+    background:#d9534f
+}
+thead{
+    background:#025b6d;
+    color:white;
 }
 th{
     cursor:pointer;
