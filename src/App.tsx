@@ -32,10 +32,12 @@ function App() {
     sortBySubjectAsc:false
   })
 
+  // In order to sort by date and time seperately, the initial log messages need to be modified
   function initializeLogMessages(messages:UninitializedLogMessage[]){
     return messages.map((val:UninitializedLogMessage) => ({...val, dateCreated: val.created.split(' ')[0], timeCreated:val.created.split(' ')[1]}))
   }
 
+  // When sorting by column, you need to be able to sort in both ascending and descending order e.g. A-Z & Z-A
   function tableSort(a:LogMessage, b:LogMessage, column:string, ascending:boolean){
     if(column === 'date'){
       if(ascending){
@@ -121,10 +123,13 @@ function App() {
   function applyFilter(){
     setState(state => ({
       ...state, 
+      // reinitializing log messages is necessary each time a filter is applied in order for the filter to apply to all log messages
       logMessages:initializeLogMessages(logData)
                     .filter((message:LogMessage) => 
                       (state.filterOptions.dateFrom === '' || state.filterOptions.dateTo === '' || ( moment(state.filterOptions.dateFrom).isSame(message.dateCreated) || moment(state.filterOptions.dateTo).isSame(message.dateCreated) || moment(message.dateCreated).isBetween(state.filterOptions.dateFrom, state.filterOptions.dateTo) )) &&
+                      // In order for the moment.js package to work properly, there needs to be a date in addition to the hour, minute, second portion of the string; hence the placeholder 2020-3-13
                       (state.filterOptions.timeFrom === '' || state.filterOptions.timeTo === '' || ( moment(`2020-3-13 ${state.filterOptions.timeFrom}`).isSame(`2020-3-13 ${message.timeCreated}`) || moment(`2020-3-13 ${state.filterOptions.timeTo}`).isSame(`2020-3-13 ${message.timeCreated}`) || moment(`2020-3-13 ${message.timeCreated}`).isBetween(`2020-3-13 ${state.filterOptions.timeFrom}`, `2020-3-13 ${state.filterOptions.timeTo}`) )) &&
+                      
                       (message.subject.toLowerCase().includes(state.filterOptions.subjectIncludes.toLowerCase())) &&
                       (
                         (message.type === '1' && state.filterOptions.typeOne) ||
@@ -175,8 +180,7 @@ function App() {
       <header>
         <img src={whytespyder} alt='WhyteSpyder Logo' />
         <h1>WhyteSpyder Sample Tool</h1>
-
-        <a download='table.json' href={URL.createObjectURL(new Blob([JSON.stringify(state.logMessages)]))} className='btn btn-warning'>Export Table</a>
+        <a download='log_messages.json' href={URL.createObjectURL(new Blob([JSON.stringify(state.logMessages)]))} className='btn btn-warning'>Export Table</a>
       </header>
 
       <Filter filterOptions={state.filterOptions} changeFilterOptions={changeFilterOptions} clearFilter={clearFilter} applyFilter={applyFilter}/>
