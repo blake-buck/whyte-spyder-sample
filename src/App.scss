@@ -1,4 +1,7 @@
 header{
+    position:sticky;
+    top: 0;
+    z-index:5;
     width:100%;
     display:flex;
     align-items: center;
@@ -21,7 +24,6 @@ header{
     }
 
     @media screen and (max-width:680px){
-        min-width:370px;
         flex-direction:column;
         h1{
             margin-left:auto;
@@ -33,62 +35,4 @@ header{
             margin-right:auto;
         }
     }
-}
-
-.status-1, .status-3{
-    color:white;
-}
-
-.status-1{
-    background:green;
-}
-
-.status-2{
-    background:yellow;
-}
-
-.status-3{
-    background:red;
-}
-
-.various-filters{
-    display:flex;
-    justify-content: space-between;
-    flex-wrap:wrap;
-    justify-items: center;
-
-    .filter-card{
-        border:1px solid lightgrey;
-        border-radius:5px;
-        padding:10px;
-        margin:5px;
-        @media screen and (min-width:680px){
-            min-width:300px;
-        }
-    }
-
-    @media screen and (max-width:680px){
-        flex-direction:column;
-    }
-}
-
-.filter-checkbox{
-    display:flex;
-    align-items: center;
-    input{
-        width:16px;
-        height:16px;
-    }
-}
-
-.filter-card-body{
-    width:100%;
-    button{
-        float:right;
-        margin:5px;
-    }
-}
-
-th{
-    cursor:pointer;
 }

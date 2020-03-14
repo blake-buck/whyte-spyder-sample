@@ -1,0 +1,37 @@
+.various-filters{
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+    justify-items: center;
+
+    .filter-card{
+        border:1px solid lightgrey;
+        border-radius:5px;
+        padding:10px;
+        margin:5px;
+        @media screen and (min-width:680px){
+            min-width:300px;
+        }
+    }
+
+    @media screen and (max-width:680px){
+        flex-direction:column;
+    }
+}
+
+.filter-checkbox{
+    display:flex;
+    align-items: center;
+    input{
+        width:16px;
+        height:16px;
+    }
+}
+
+.filter-card-body{
+    width:100%;
+    button{
+        float:right;
+        margin:5px;
+    }
+}

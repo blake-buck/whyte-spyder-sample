@@ -157,8 +157,7 @@ function App() {
     <div>
 
       <header>
-        <img src={whytespyder} alt='WhyteSpyder Logo' />
-        <h1>WhyteSpyder Sample Tool</h1>
+        <h1>Sample Log Tool</h1>
         <a download='log_messages.json' href={URL.createObjectURL(new Blob([JSON.stringify(state.logMessages)]))} className='btn btn-warning'>Export Table</a>
       </header>
 

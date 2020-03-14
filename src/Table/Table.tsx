@@ -1,5 +1,6 @@
 import React from 'react';
 import { LogMessage, AppState } from '../types';
+import './Table.scss';
 
 interface TableProps{
     logMessages:LogMessage[]

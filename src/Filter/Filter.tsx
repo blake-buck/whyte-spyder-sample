@@ -1,5 +1,6 @@
 import React from 'react';
 import { FilterOptions } from '../types';
+import './Filter.scss';
 
 interface FilterProps{
     filterOptions:FilterOptions;
@@ -34,7 +35,7 @@ function Filter(props:FilterProps){
             </div>
 
             <div className='filter-card'>
-              <h6>Type of</h6>
+              <h6>Log Type</h6>
               <span className='filter-checkbox'>
                 <input onChange={(e) => changeFilterOptions(e, 'typeOne', true)} checked={filterOptions.typeOne} type='checkbox' />
                 <label>Normal</label>
