@@ -174,7 +174,9 @@ function App() {
 
       <header>
         <img src={whytespyder} alt='Whyte Spyder Logo' />
-        <h1>Whyte Spyder Sample Log Tool</h1>
+        <h1>Whyte Spyder Sample Tool</h1>
+
+        <a download='table.json' href={URL.createObjectURL(new Blob([JSON.stringify(state.logMessages)]))} className='btn btn-primary'>Export Table</a>
       </header>
 
       <Filter filterOptions={state.filterOptions} changeFilterOptions={changeFilterOptions} clearFilter={clearFilter} applyFilter={applyFilter}/>
