@@ -6,7 +6,7 @@ import Table from './Table/Table';
 import Filter from './Filter/Filter';
 import './App.scss';
 
-import whytespyder from './assets/whytespyder.jpg';
+import whytespyder from './assets/whytespyder.png';
 import logData from './assets/SKUNinja-sample-logs.json';
 import { AppState, UninitializedLogMessage, LogMessage } from './types';
 
@@ -173,10 +173,10 @@ function App() {
     <div>
 
       <header>
-        <img src={whytespyder} alt='Whyte Spyder Logo' />
-        <h1>Whyte Spyder Sample Tool</h1>
+        <img src={whytespyder} alt='WhyteSpyder Logo' />
+        <h1>WhyteSpyder Sample Tool</h1>
 
-        <a download='table.json' href={URL.createObjectURL(new Blob([JSON.stringify(state.logMessages)]))} className='btn btn-primary'>Export Table</a>
+        <a download='table.json' href={URL.createObjectURL(new Blob([JSON.stringify(state.logMessages)]))} className='btn btn-warning'>Export Table</a>
       </header>
 
       <Filter filterOptions={state.filterOptions} changeFilterOptions={changeFilterOptions} clearFilter={clearFilter} applyFilter={applyFilter}/>
