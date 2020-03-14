@@ -1,0 +1,36 @@
+import React from 'react';
+import { LogMessage } from '../types';
+
+interface TableProps{
+    logMessages:LogMessage[]
+    sortByDate: any;
+    sortByTime:any;
+    sortBySubject:any;
+    setState:any;
+}
+
+
+function Table(props:TableProps){
+    return(
+        <table className='table'>
+        <thead>
+          <tr>
+            <th scope='col' onClick={(e) => props.sortByDate()} data-toggle="tooltip" title="Sort entries by the date they were created">Date</th>
+            <th scope='col' onClick={(e) => props.sortByTime()} data-toggle="tooltip" title="Sort entries by the time they were created">Time</th>
+            <th scope='col' onClick={(e) => props.sortBySubject()} data-toggle="tooltip" title="Sort entries alphabetically by subject">Subject</th>
+          </tr>
+        </thead>
+        <tbody>
+          {props.logMessages.map((logMessage:LogMessage) => (
+            <tr key={logMessage.id} className={`status-${logMessage.type}`} data-toggle="modal" data-target="#message-dialog" onClick={() => props.setState((state:any) => ({...state, selected:logMessage}))}>
+              <td>{logMessage.dateCreated}</td>
+              <td>{logMessage.timeCreated}</td>
+              <td>{logMessage.subject}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )
+}
+
+export default Table;
