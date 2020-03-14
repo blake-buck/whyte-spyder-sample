@@ -41,46 +41,25 @@ function App() {
   function tableSort(a:LogMessage, b:LogMessage, column:string, ascending:boolean){
     if(column === 'date'){
       if(ascending){
-        if(moment(a.dateCreated).isAfter(moment(b.dateCreated))){
+        if(moment(a.created).isAfter(moment(b.created))){
           return 1
         }
-        if(moment(b.dateCreated).isAfter(moment(a.dateCreated))){
+        if(moment(b.created).isAfter(moment(a.created))){
           return -1
         }
         return 0
       }
 
       if(!ascending){
-        if(moment(a.dateCreated).isAfter(moment(b.dateCreated))){
+        if(moment(a.created).isAfter(moment(b.created))){
           return -1
         }
-        if(moment(b.dateCreated).isAfter(moment(a.dateCreated))){
+        if(moment(b.created).isAfter(moment(a.created))){
           return 1
         }
         return 0
       }
       return 0
-    }
-    if(column === 'time'){
-      if(ascending){
-        if(moment(`2020-3-13 ${a.timeCreated}`).isAfter(moment(`2020-3-13 ${b.timeCreated}`))){
-          return 1
-        }
-        if(moment(`2020-3-13 ${b.timeCreated}`).isAfter(moment(`2020-3-13 ${a.timeCreated}`))){
-          return -1
-        }
-        return 0
-      }
-
-      if(!ascending){
-        if(moment(`2020-3-13 ${a.timeCreated}`).isAfter(moment(`2020-3-13 ${b.timeCreated}`))){
-          return -1
-        }
-        if(moment(`2020-3-13 ${b.timeCreated}`).isAfter(moment(`2020-3-13 ${a.timeCreated}`))){
-          return 1
-        }
-        return 0
-      }
     }
     if(column === 'subject'){
       if(ascending){
@@ -121,6 +100,7 @@ function App() {
   }
 
   function applyFilter(){
+    console.log(`${state.filterOptions.dateFrom} ${state.filterOptions.timeFrom}`)
     setState(state => ({
       ...state, 
       // reinitializing log messages is necessary each time a filter is applied in order for the filter to apply to all log messages
@@ -128,8 +108,7 @@ function App() {
                     .filter((message:LogMessage) => 
                       (state.filterOptions.dateFrom === '' || state.filterOptions.dateTo === '' || ( moment(state.filterOptions.dateFrom).isSame(message.dateCreated) || moment(state.filterOptions.dateTo).isSame(message.dateCreated) || moment(message.dateCreated).isBetween(state.filterOptions.dateFrom, state.filterOptions.dateTo) )) &&
                       // In order for the moment.js package to work properly, there needs to be a date in addition to the hour, minute, second portion of the string; hence the placeholder 2020-3-13
-                      (state.filterOptions.timeFrom === '' || state.filterOptions.timeTo === '' || ( moment(`2020-3-13 ${state.filterOptions.timeFrom}`).isSame(`2020-3-13 ${message.timeCreated}`) || moment(`2020-3-13 ${state.filterOptions.timeTo}`).isSame(`2020-3-13 ${message.timeCreated}`) || moment(`2020-3-13 ${message.timeCreated}`).isBetween(`2020-3-13 ${state.filterOptions.timeFrom}`, `2020-3-13 ${state.filterOptions.timeTo}`) )) &&
-                      
+                      (state.filterOptions.timeFrom === '' || state.filterOptions.timeTo === '' || ( moment(`2020-3-13 ${state.filterOptions.timeFrom}`).isSame(`2020-3-13 ${message.timeCreated}`) || moment(`2020-3-13 ${state.filterOptions.timeTo}`).isSame(`2020-3-13 ${message.timeCreated}`) || moment(`2020-3-13 ${message.timeCreated}`).isBetween(`2020-3-13 ${state.filterOptions.timeFrom}`, `2020-3-13 ${state.filterOptions.timeTo}`) )) &&          
                       (message.subject.toLowerCase().includes(state.filterOptions.subjectIncludes.toLowerCase())) &&
                       (
                         (message.type === '1' && state.filterOptions.typeOne) ||
