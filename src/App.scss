@@ -8,19 +8,16 @@ header{
     color:white;
     background:#01aec5;
 
-    img{
-        margin:5px;
-        width:48px;
-        height:48px;
-    }
+    justify-content: space-between;
 
     h1{
         margin-left: 10px;
     }
 
-    a{
-        margin:5px;
-        margin-left:auto;
+    span{
+        button{
+            margin:5px;
+        }
     }
 
     @media screen and (max-width:680px){

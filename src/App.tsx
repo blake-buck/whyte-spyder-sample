@@ -39,7 +39,10 @@ function App() {
 
       <header>
         <h1>Sample Log Tool</h1>
-        <a download='log_messages.json' href={URL.createObjectURL(new Blob([JSON.stringify(state.logMessages)]))} className='btn btn-warning'>Export Table</a>
+        <span>
+          <button onClick={() => createDownloadData(state.logMessages, 'csv')} className='btn btn-warning'>Export CSV</button>
+          <button onClick={() => createDownloadData(state.logMessages, 'json')} className='btn btn-warning'>Export JSON</button>
+        </span>
       </header>
 
       <Filter filterOptions={state.filterOptions} changeFilterOptions={changeFilterOptions} clearFilter={clearFilter} applyFilter={applyFilter}/>
@@ -50,6 +53,46 @@ function App() {
 
     </div>
   );
+
+  function createDownloadData(data:LogMessage[], type:string){
+    let blobData:string[] = []
+    console.log(Object.values(data[0]))
+    if(type === 'json'){
+      blobData.push(JSON.stringify(data))
+    }
+    if(type === 'csv' && data.length > 0){
+      let stringToWrite = ''
+      stringToWrite += Object.keys(data[0]).join(',') + '\n'
+      // double looping, not great but needs to be done in order to store the various date/time values as strings and not moment() functions i
+      data.map((message) => {
+        let newLine = ''
+        Object.values(message).map((val) => {
+          if(typeof(val) === 'object' && val !== null){
+            newLine += val.format('YYYY-MM-DD HH:mm:ss') + ','
+          }
+          else{
+            if(typeof(val) === 'string'){
+              val = val.replace(/\n|,/g, '')
+            }
+            newLine += val + ','
+          }
+        })
+
+        stringToWrite += newLine.slice(0, newLine.length) + '\n'
+        
+      })
+      blobData.push(stringToWrite.slice(0, stringToWrite.length -1))
+      
+    }
+
+    let downloadElement = document.createElement('a')
+    downloadElement.style.display = 'none';
+    downloadElement.download = `log_table.${type}`
+    downloadElement.href = URL.createObjectURL(new Blob(blobData));
+    document.querySelector('header')?.append(downloadElement)
+    downloadElement.click();
+    document.querySelector('header')?.removeChild(downloadElement)
+  }
 
   function sort(ascending:boolean, firstCheck:boolean, secondCheck:boolean){
     let positionShifter = 1;
