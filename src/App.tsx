@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 
-
 import Dialog from './Dialog/Dialog';
 import Table from './Table/Table';
 import Filter from './Filter/Filter';
@@ -40,8 +39,8 @@ function App() {
       <header>
         <h1>Sample Log Tool</h1>
         <span>
-          <button onClick={() => createDownloadData(state.logMessages, 'csv')} className='btn btn-warning'>Export CSV</button>
-          <button onClick={() => createDownloadData(state.logMessages, 'json')} className='btn btn-warning'>Export JSON</button>
+          <button onClick={() => download(state.logMessages, 'csv')}  className='btn btn-warning'>Export CSV</button>
+          <button onClick={() => download(state.logMessages, 'json')} className='btn btn-warning'>Export JSON</button>
         </span>
       </header>
 
@@ -54,28 +53,28 @@ function App() {
     </div>
   );
 
-  function createDownloadData(data:LogMessage[], type:string){
+  function download(data:LogMessage[], type:string){
     let blobData:string[] = []
-    console.log(Object.values(data[0]))
+
     if(type === 'json'){
       blobData.push(JSON.stringify(data))
     }
+
     if(type === 'csv' && data.length > 0){
       let stringToWrite = ''
       stringToWrite += Object.keys(data[0]).join(',') + '\n'
-      // double looping, not great but needs to be done in order to store the various date/time values as strings and not moment() functions i
+      // double looping, not great but needs to be done in order to store the various date/time values as strings and not moment objects
       data.map((message) => {
         let newLine = ''
         Object.values(message).map((val) => {
           if(typeof(val) === 'object' && val !== null){
-            newLine += val.format('YYYY-MM-DD HH:mm:ss') + ','
+            val = val.format('YYYY-MM-DD HH:mm:ss') + ','
           }
-          else{
-            if(typeof(val) === 'string'){
-              val = val.replace(/\n|,/g, '')
-            }
-            newLine += val + ','
+          if(typeof(val) === 'string'){
+            val = val.replace(/\n|,/g, '')
+            val = val.replace(/,/g, '\,')
           }
+          newLine += val + ','
         })
 
         stringToWrite += newLine.slice(0, newLine.length) + '\n'
@@ -85,13 +84,29 @@ function App() {
       
     }
 
+    // creates an invisible download link, adds it to the document, clicks it, and then removes it from the document
+    let headerElement = document.querySelector('header');
     let downloadElement = document.createElement('a')
+
     downloadElement.style.display = 'none';
     downloadElement.download = `log_table.${type}`
     downloadElement.href = URL.createObjectURL(new Blob(blobData));
-    document.querySelector('header')?.append(downloadElement)
+    
+    headerElement?.append(downloadElement)
     downloadElement.click();
-    document.querySelector('header')?.removeChild(downloadElement)
+    headerElement?.removeChild(downloadElement)
+  }
+
+  
+
+  function columnSort(a:LogMessage, b:LogMessage, column:string, ascending:boolean){
+    if(column === 'date'){
+      return sort(ascending, a.created.isAfter(b.created), b.created.isAfter(a.created))
+    }
+    if(column === 'subject'){
+      return sort(ascending, a.subject.toLowerCase() > b.subject.toLowerCase(), b.subject.toLowerCase() > a.subject.toLowerCase())
+    }
+    return 0
   }
 
   function sort(ascending:boolean, firstCheck:boolean, secondCheck:boolean){
@@ -109,16 +124,6 @@ function App() {
       return -1 * positionShifter
     }
 
-    return 0
-  }
-
-  function columnSort(a:LogMessage, b:LogMessage, column:string, ascending:boolean){
-    if(column === 'date'){
-      return sort(ascending, a.created.isAfter(b.created), b.created.isAfter(a.created))
-    }
-    if(column === 'subject'){
-      return sort(ascending, a.subject.toLowerCase() > b.subject.toLowerCase(), b.subject.toLowerCase() > a.subject.toLowerCase())
-    }
     return 0
   }
 
