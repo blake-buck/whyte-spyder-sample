@@ -12,4 +12,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Can filter rows by date, time, subject text, and log type. Date and time can be used independently of each other.
 * Clicking on table column headers sorts table by that column from DESC to ASC or vice versa. Example: clicking on "Subject" sorts from Z to A, clicking it again sorts from A-Z, and so on.
 * Can export filtered table in JSON format.
+* Can export filtered table in CSV format
 * Page is mobile responsive.
+* added a test warning message to the json file
+* added some basic tests to App.test.tsx
