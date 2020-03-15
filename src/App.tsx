@@ -72,7 +72,7 @@ function App() {
           }
           if(typeof(val) === 'string'){
             val = val.replace(/\n|,/g, '')
-            val = val.replace(/,/g, '\,')
+            val = val.replace(/,/g, '')
           }
           newLine += val + ','
         })
