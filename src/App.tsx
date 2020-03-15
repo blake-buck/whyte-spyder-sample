@@ -68,7 +68,7 @@ function App() {
         let newLine = ''
         Object.values(message).map((val) => {
           if(typeof(val) === 'object' && val !== null){
-            val = val.format('YYYY-MM-DD HH:mm:ss') + ','
+            val = val.format('YYYY-MM-DD HH:mm:ss')
           }
           if(typeof(val) === 'string'){
             val = val.replace(/\n|,/g, '')
