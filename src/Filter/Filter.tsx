@@ -1,13 +1,6 @@
 import React from 'react';
-import { FilterOptions } from '../types';
+import { FilterProps } from '../types';
 import './Filter.scss';
-
-interface FilterProps{
-    filterOptions:FilterOptions;
-    changeFilterOptions: (e:React.ChangeEvent<HTMLInputElement>, parameterToChange:string, isCheckbox?:boolean) => void;
-    applyFilter: () => void;
-    clearFilter: () => void;
-}
 
 function Filter(props:FilterProps){
     const {filterOptions, changeFilterOptions, applyFilter, clearFilter} = props;
@@ -55,8 +48,8 @@ function Filter(props:FilterProps){
 
           </div>
 
-          <button onClick={() => applyFilter()} className='btn btn-primary'>Apply Filter</button>
-          <button onClick={() => clearFilter()} className='btn btn-secondary'>Clear Filter</button>
+          <button onClick={applyFilter} className='btn btn-primary'>Apply Filter</button>
+          <button onClick={clearFilter} className='btn btn-secondary'>Clear Filter</button>
 
         </div>
       </div>

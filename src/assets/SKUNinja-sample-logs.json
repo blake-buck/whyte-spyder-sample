@@ -1,5 +1,14 @@
 [
     {
+        "id": "451262",
+        "created": "2019-05-30 12:07:33",
+        "user_id": "5",
+        "ip": "127.0.0.1",
+        "type": "3",
+        "subject": "Global Error Caught.",
+        "body": "Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Tag.name' in 'where clause'\nUser: Array\n(\n    [id] => 5\n    [name] => Roger Dickey\n    [company_id] => [\"422\"]\n    [password_token] => \n    [email] => rdickey@whytespyder.com\n    [email_verified] => 1\n    [email_token] => \n    [email_token_expires] => 2017-02-06 11:14:10\n    [tos] => 1\n    [active] => 1\n    [last_login] => 2019-05-29 16:53:29\n    [last_action] => \n    [is_admin] => 1\n    [created] => 2017-02-05 23:09:27\n    [modified] => 2019-05-29 16:53:29\n    [group_id] => 1\n    [Group] => Array\n        (\n            [id] => 1\n            [name] => Super Admin\n        )\n\n)\n"
+    },
+    {
         "id": "451410",
         "created": "2019-06-04 20:21:53",
         "user_id": "5",
@@ -1325,15 +1334,6 @@
     {
         "id": "451263",
         "created": "2019-05-30 12:07:49",
-        "user_id": "5",
-        "ip": "127.0.0.1",
-        "type": "3",
-        "subject": "Global Error Caught.",
-        "body": "Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Tag.name' in 'where clause'\nUser: Array\n(\n    [id] => 5\n    [name] => Roger Dickey\n    [company_id] => [\"422\"]\n    [password_token] => \n    [email] => rdickey@whytespyder.com\n    [email_verified] => 1\n    [email_token] => \n    [email_token_expires] => 2017-02-06 11:14:10\n    [tos] => 1\n    [active] => 1\n    [last_login] => 2019-05-29 16:53:29\n    [last_action] => \n    [is_admin] => 1\n    [created] => 2017-02-05 23:09:27\n    [modified] => 2019-05-29 16:53:29\n    [group_id] => 1\n    [Group] => Array\n        (\n            [id] => 1\n            [name] => Super Admin\n        )\n\n)\n"
-    },
-    {
-        "id": "451262",
-        "created": "2019-05-30 12:07:33",
         "user_id": "5",
         "ip": "127.0.0.1",
         "type": "3",

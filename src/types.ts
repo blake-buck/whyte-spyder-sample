@@ -1,3 +1,5 @@
+import { Moment } from "moment";
+
 export interface UninitializedLogMessage{
     id:string;
     created:string;
@@ -10,14 +12,14 @@ export interface UninitializedLogMessage{
   
   export interface LogMessage{
     id:string;
-    created:string;
     user_id:string;
     ip:string;
     type:string;
     subject:string;
     body:string | null;
-    dateCreated:string;
-    timeCreated:string;
+    created:Moment;
+    dateCreated:Moment;
+    timeCreated:Moment;
   }
   
   export interface FilterOptions{
@@ -33,9 +35,27 @@ export interface UninitializedLogMessage{
   
   export interface AppState{
     logMessages:LogMessage[];
-    selected:LogMessage | null;
+    selectedMessage:LogMessage | null;
     filterOptions:FilterOptions;
     sortByDateAsc:boolean;
     sortByTimeAsc:boolean;
     sortBySubjectAsc:boolean;
   }
+
+  export interface TableProps{
+    logMessages:LogMessage[]
+    sortByDate: () => void;
+    sortBySubject:() => void;
+    setState: React.Dispatch<React.SetStateAction<AppState>>;
+}
+
+export interface FilterProps{
+  filterOptions:FilterOptions;
+  changeFilterOptions: (e:React.ChangeEvent<HTMLInputElement>, parameterToChange:string, isCheckbox?:boolean) => void;
+  applyFilter: () => void;
+  clearFilter: () => void;
+}
+
+export interface DialogProps{
+  selectedMessage:LogMessage | null
+}

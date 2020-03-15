@@ -1,9 +1,5 @@
 import React from "react";
-import { LogMessage } from "../types";
-
-interface DialogProps{
-    selected:LogMessage | null
-}
+import { DialogProps } from "../types";
 
 function Dialog(props:DialogProps){
     return (
@@ -14,9 +10,7 @@ function Dialog(props:DialogProps){
                 <h5 className="modal-title">Log Body</h5>
                 </div>
                 <div className="modal-body">
-                {props.selected?.body ? props.selected.body : 'This log message doesn\'t have a body.'}
-                </div>
-                <div className="modal-footer">
+                {props.selectedMessage?.body ? props.selectedMessage.body : 'This log message doesn\'t have a body.'}
                 </div>
             </div>
             </div>
