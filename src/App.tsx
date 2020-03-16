@@ -66,13 +66,21 @@ function App() {
       // double looping, not great but needs to be done in order to store the various date/time values as strings and not moment objects
       data.map((message) => {
         let newLine = ''
-        Object.values(message).map((val) => {
+        Object.values(message).map((val, i) => {
           if(typeof(val) === 'object' && val !== null){
-            val = val.format('YYYY-MM-DD HH:mm:ss')
+            // if additional fields get added to log messages then these i value checks may need to change
+            if(i === 7){
+              val = val.format('YYYY-MM-DD')
+            }
+            else if(i === 8){
+              val = val.format('HH:mm:ss')
+            }
+            else{
+              val = val.format('YYYY-MM-DD HH:mm:ss')
+            }
           }
           if(typeof(val) === 'string'){
             val = val.replace(/\n|,/g, '')
-            val = val.replace(/,/g, '')
           }
           newLine += val + ','
         })
